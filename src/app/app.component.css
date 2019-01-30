@@ -1,9 +1,8 @@
-
-
-:host {
+.wrapper {
     /* height: 100%; */
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: stretch;
     position: absolute;
     top: 0;
     bottom: 0;

@@ -42,13 +42,19 @@ span {
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
+
+.wrapper {
+    display: flex;
+    align-items: stretch;
+    height: 100%;
+}
+
 #sidebar {
     min-width: 250px;
     max-width: 250px;
     background: $theme-supplementer;
     color: $themeColor-Dark;
     transition: all 0.3s;
-    height: 100%;
 }
 
 #sidebar.active {
@@ -305,7 +311,7 @@ ADDITIONS
   color: $theme-supplementer;
 }
 
-#content nav div.collapse li a.nav-link i.far {
+nav div.collapse li a.nav-link i.far {
   color: $theme-supplementer;
   font-size: 1.8em;
   padding: 0.2em;
@@ -397,7 +403,7 @@ ADDITIONS
     color: $themeColor-Dark
   }
 
-  #content #header .navbar {
+  #header .navbar {
     width: 96%;
   }
 

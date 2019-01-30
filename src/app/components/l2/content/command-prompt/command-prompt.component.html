@@ -1,0 +1,30 @@
+<div id="header" class="headerprompt">
+    <div class="prompt">
+        <p class="promptext">$_</p>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <input type="text" class="form-control" placeholder="What you need..." name="command" id="command" (keyup)="initiateDomOpsOnEnter($event)">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="nav navbar-nav ml-auto">
+                    <li id="btnFavorites" class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="far fa-star" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)"></i>
+                        </a>
+                    </li>
+                    <li id="btnClearCommand" class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="far fa-trash-alt" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)"></i>
+                        </a>
+                    </li>
+                    <li id="btnFireCommand" class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="far fa-paper-plane" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <input type="hidden" id="intentHidden" value="createissue">
+</div>

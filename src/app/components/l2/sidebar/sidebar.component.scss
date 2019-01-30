@@ -1,5 +1,9 @@
 @import "./src/sass/_variables.scss";
 
+:host {
+    height: 100%;
+}
+
 a,
 a:hover,
 a:focus {

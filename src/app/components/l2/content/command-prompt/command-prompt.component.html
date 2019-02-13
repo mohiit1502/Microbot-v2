@@ -8,18 +8,23 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="nav navbar-nav ml-auto">
                     <li id="btnFavorites" class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link">
                             <i class="far fa-star" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)"></i>
                         </a>
                     </li>
-                    <li id="btnClearCommand" class="nav-item">
-                        <a class="nav-link" href="#">
+                    <li id="btnClearCommand" class="nav-item" (click)="resetCommand();">
+                        <a class="nav-link">
                             <i class="far fa-trash-alt" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)"></i>
                         </a>
                     </li>
                     <li id="btnFireCommand" class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link">
                             <i class="far fa-paper-plane" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)"></i>
+                        </a>
+                    </li>
+                    <li id="btnSTTCommand" class="nav-item" (click)="startSpeechRecognition()">
+                        <a class="nav-link">
+                            <i class="far fa-microphone fas"></i>
                         </a>
                     </li>
                 </ul>

@@ -1,0 +1,17 @@
+<div class="card {{card.cardStyle}}">
+  <div class="card-body">
+    <h5 class="card-title">{{card.cardTitle}}<a class="close">
+        <h6>x</h6>
+      </a></h5>
+    <p class="card-text" id="card-content">
+      {{card.cardContent}}
+      <a 
+        class="btn btn-info float-right" 
+        role="button"
+        id="btnRepeatCommand{{card.insertionCounter}}"
+        (click)="repeatCommand()">Repeat</a>
+    </p>
+  </div>
+  <div class="card-footer"><small class="text-muted">{{displayTime}}</small></div>
+</div>
+<div class="line"></div>

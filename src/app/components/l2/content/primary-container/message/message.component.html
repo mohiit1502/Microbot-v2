@@ -1,3 +1,14 @@
-<p>
-  message works!
-</p>
+<div class="alert alert-success alert-dismissible fade show hide good" id="successAlert" role="alert" [hidden]="true" #successTemplate>
+    <strong>Success! </strong>
+    <span id="op-msg"> Repository Added!</span>
+    <button type="button" id="hideSuccessAlert" class="close" aria-label="Close" (click)="hideMessage(successTemplate);">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="alert alert-danger alert-dismissible hide good" id="dangerAlert" role="alert" [hidden]="true" #errorTemplate>
+    <strong>Oh snap!</strong> 
+    <span> Change a few things up and try submitting again.</span>
+    <button type="button" id="hideDangerAlert" class="close" aria-label="Close" (click)="hideMessage(errorTemplate);">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>

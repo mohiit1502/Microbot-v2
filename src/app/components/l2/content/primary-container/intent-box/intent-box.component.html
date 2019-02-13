@@ -1,3 +1,17 @@
-<p>
-  intent-box works!
-</p>
+<div 
+  class="alert alert-info alert-dismissible hide good" 
+  id="intentBox" 
+  role="alert"
+  [hidden]="isHidden"
+  #intentBox>
+    <button 
+      type="button" 
+      id="hideInfoAlert" 
+      class="close" 
+      aria-label="Close"
+      (click)="hideParent($event)">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>I understand you intend to: &nbsp;&nbsp;</strong>
+    <span id="intentName"></span>&nbsp;&nbsp;If not, please choose the correct option:
+</div>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { DomOpsService } from 'src/app/services/dom/dom-ops.service';
 
 @Component({
   selector: 'app-message',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessageComponent implements OnInit {
 
-  constructor() { }
+  @Input() isHidden: boolean = true;
+
+  constructor(private domOpsService: DomOpsService) { }
 
   ngOnInit() {
+    this.domOpsService.commandPromptEnteredWithValue.subscribe(
+      () => {
+        this.isHidden = true;
+      }
+    )
   }
 
+  hideMessage(template: HTMLInputElement) {
+    template.hidden = true;
+  }
 }

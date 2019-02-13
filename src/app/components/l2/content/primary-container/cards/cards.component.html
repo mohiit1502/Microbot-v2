@@ -1,0 +1,9 @@
+<div 
+    class="card-group" 
+    id="conversations">
+    <app-card 
+        [card]="card"
+        *ngFor="let card of cards;"
+        [ngStyle]="{'display': 'contents'}">
+    </app-card>
+</div>

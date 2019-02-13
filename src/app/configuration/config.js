@@ -2,6 +2,9 @@ module.exports = {
   gitToken: '96ead73c54cbbf023a73ee57af145b205d460851',
   recasttoken: '26021d055040a9d9f1ad48476efab4a0',
   intentSlugToOperations: {
+    command: {
+      cardTitle: 'You Said'
+    },
     createrepo: {
       requestMethod: 'post',
       intentMessage: 'Create a Repository in Github',
@@ -104,6 +107,7 @@ module.exports = {
       requestMethod: 'purge',
       intentMessage: 'Clear all Operations History',
       successMessage: 'Purged!',
+      cardTitle: 'Operation Completed',
       cardMsg: 'Purged history of all Operations and Commands!',
       action: { type: 'CLEAR_HISTORY' },
       response_action: { type: 'CLEAR_HISTORY_RESPONSE' },

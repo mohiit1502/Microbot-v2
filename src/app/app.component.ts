@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
+import { PersistenceOpsService } from './services/io/persistence-ops.service';
+import { Store } from '@ngrx/store';
+import { Card } from './components/l2/content/primary-container/cards/card/card.model';
+
 import * as $ from 'node_modules/jquery/dist/jquery';
 
 @Component({
@@ -9,43 +13,16 @@ import * as $ from 'node_modules/jquery/dist/jquery';
 export class AppComponent {
   title = 'app';
 
+  constructor(private persistenceOpsService: PersistenceOpsService, private store: Store<{ioHistory: {responses: Card[]}}>) {}
+
   ngOnInit() {
+    this.registerEvents();
+  }
+
+  registerEvents() {
     $(document).ready(() => {
-      $('#sidebarCollapse').on('click', () => {
-        $('#sidebar').toggleClass('active');
-        $('.hideable').toggleClass('hide');
-      });
-      $('#content nav div.collapse li a.nav-link i.far.fa-star').hover(() => {
-        $('#content nav div.collapse li a.nav-link i.far.fa-star').toggleClass('fas');
-      });
-      $('#content nav div.collapse li a.nav-link i.far.fa-trash-alt').hover(() => {
-        $('#content nav div.collapse li a.nav-link i.far.fa-trash-alt').toggleClass('fas');
-      });
-      $('#content nav div.collapse li a.nav-link i.far.fa-paper-plane').hover(() => {
-        $('#content nav div.collapse li a.nav-link i.far.fa-paper-plane').toggleClass('fas');
-      });
-      // $('#command').keyup((e) => {
-      //   const code = (e.keyCode ? e.keyCode : e.which);
-      //   if (code === 13) {
-      //     $('#widgets').children().addClass('hide');
-      //     $('#successAlert').addClass('hide');
-      //     $('#dangetAlert').addClass('hide');
-      //     $('#intentBox').addClass('hide');
-      //     const command = document.getElementById('command').value;
-      //     if (command) {
-      //       const text = { text: command };
-      //       recastclient.getAndCallProcessIntent(command, text);
-      //     } else {
-      //       dom.showEmptyCommandMessage('Please type some relevant words in the command box.');
-      //     }
-      //   }
-      // });
       $('#btnFavorites').click(() => {
     
-      });
-      $('#btnClearCommand').click(() => {
-        $('#command').val('');
-        $('#command').focus();
       });
       function hitEnter(command) {
         const commandInputField = $('#command');
@@ -81,7 +58,7 @@ export class AppComponent {
       // $('#git_bridge').on('click', () => {
       //   window.location.href = 'https://github.com/login/oauth/authorize?scope=user:email:repo&client_id=f6f649a1fe2dfea082ba';
       // });
-      const localHistory = JSON.parse(window.localStorage.getItem('currentState'));
+      // const localHistory = JSON.parse(window.localStorage.getItem('currentState'));
       // window.onload = initOps();
     
       function initOps() {

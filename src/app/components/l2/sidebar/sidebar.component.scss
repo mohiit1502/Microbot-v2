@@ -49,17 +49,59 @@ span {
     color: $themeColor-Dark;
     transition: all 0.3s;
     height: 100%;
+    position:fixed;
+    z-index: 10;
+    left: -255px;
+    .triangle {
+        position: absolute;
+        background-color: $theme-supplementer;
+        opacity: 0.8;
+        text-align: left;
+        left: 6em;
+        top: 50%;
+        cursor: pointer;
+        &:before {
+            content: '';
+            width: 20px;
+            height: 50px;
+            transform: skewY(25deg);
+            background-color: $theme-supplementer;
+            position: absolute;
+            top: 40px;
+            border-radius: 8px;
+        }
+        &:after {
+            content: '';
+            width: 20px;
+            height: 50px;
+            transform: skewY(155deg);
+            background-color: $theme-supplementer;
+            position: absolute;
+            top: 60px;
+            border-radius: 8px;
+        }
+        &.animation {
+            animation: pulse 2s infinite;
+            -ms-animation: pulse 2s infinite;
+            -moz-animation: pulse 2s infinite;
+            -webkit-animation: pulse 2s infinite;
+        }
+    }
+    &.active {
+        min-width: 80px;
+        max-width: 80px;
+        text-align: center;
+        left: -85px;
+        .sidebar-header h3, .CTAs {
+            display: none;
+        }
+    }
 }
 
-#sidebar.active {
-    min-width: 80px;
-    max-width: 80px;
-    text-align: center;
-}
-
-#sidebar.active .sidebar-header h3,
-#sidebar.active .CTAs {
-    display: none;
+@keyframes pulse {
+    from { background-color: $theme-supplementer; box-shadow: 0 0 9px rgba(255, 255, 255, 0.5); }
+    50% { background-color: rgba(255, 255, 255, 0.5); box-shadow: 0 0 18px $theme-supplementer; }
+    to { background-color: $theme-supplementer; box-shadow: 0 0 9px rgba(255, 255, 255, 0.5); }
 }
 
 .sidebar-header h3 {
@@ -201,6 +243,7 @@ a.article:hover {
         max-width: 80px;
         text-align: center;
         margin-left: -80px !important;
+        // display: none;
     }
     .dropdown-toggle::after {
         top: auto;

@@ -13,7 +13,7 @@ export class AddCollabWidgetComponent implements OnInit {
 
   ngOnInit() {
     this.isHidden = true;
-    console.log('add collab on init fired');
+    // console.log('add collab on init fired');
   }
 
 }

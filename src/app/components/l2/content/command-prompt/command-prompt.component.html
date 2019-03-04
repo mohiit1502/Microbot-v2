@@ -1,35 +1,51 @@
-<div id="header" class="headerprompt">
-    <div class="prompt">
-        <p class="promptext">$_</p>
-    </div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <input type="text" class="form-control" placeholder="What you need..." name="command" id="command" (keyup)="initiateDomOpsOnEnter($event)">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="nav navbar-nav ml-auto">
-                    <li id="btnFavorites" class="nav-item">
-                        <a class="nav-link">
-                            <i class="far fa-star" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)"></i>
-                        </a>
-                    </li>
-                    <li id="btnClearCommand" class="nav-item" (click)="resetCommand();">
-                        <a class="nav-link">
-                            <i class="far fa-trash-alt" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)"></i>
-                        </a>
-                    </li>
-                    <li id="btnFireCommand" class="nav-item">
-                        <a class="nav-link">
-                            <i class="far fa-paper-plane" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)"></i>
-                        </a>
-                    </li>
-                    <li id="btnSTTCommand" class="nav-item" (click)="startSpeechRecognition()">
-                        <a class="nav-link">
-                            <i class="far fa-microphone fas"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+<div id="header" class="headerprompt" (dragend)="showContextMenu($event)">
+  <!-- <div class="prompt listening_indicator"> -->
+  <div class="prompt">
+    <p class="promptext">$_</p>
+    <svg xmlns="http://www.w3.org/2000/svg" class="equalizer hide" viewBox="0 0 80 80">
+        <rect class="bar" transform="translate(13,30)"></rect>
+        <rect class="bar" transform="translate(25,30)"></rect>
+        <rect class="bar" transform="translate(37,30)"></rect>
+        <rect class="bar" transform="translate(49,30)"></rect>
+        <rect class="bar" transform="translate(61,30)"></rect>
+    </svg>
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <input type="text" class="form-control" placeholder="What you need..." 
+            name="command" id="command" (keyup)="initiateDomOpsOnEnter($event)" 
+            (click)="showContextMenu($event)" #command>
+      <!-- <div id="faux" class="form-control"></div> -->
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="inputSelectionContextMenu">
+          <a class="dropdown-item">Fire</a>
+          <a class="dropdown-item" (click)="resetCommand();">Clear</a>
+          <a class="dropdown-item">Add to Favorites</a>
         </div>
-    </nav>
-    <input type="hidden" id="intentHidden" value="createissue">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="nav navbar-nav ml-auto">
+          <li id="btnFavorites" class="nav-item">
+            <a class="nav-link">
+              <i class="far fa-star" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)"></i>
+            </a>
+          </li>
+          <li id="btnClearCommand" class="nav-item" (click)="resetCommand();">
+            <a class="nav-link">
+              <i class="far fa-trash-alt" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)"></i>
+            </a>
+          </li>
+          <li id="btnFireCommand" class="nav-item">
+            <a class="nav-link">
+              <i class="far fa-paper-plane" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)"></i>
+            </a>
+          </li>
+          <li id="btnSTTCommand" class="nav-item" (click)="startSpeechRecognition()">
+            <a class="nav-link">
+              <i class="far fa-microphone fas"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <input type="hidden" id="intentHidden" value="createissue">
 </div>

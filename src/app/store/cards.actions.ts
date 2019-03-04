@@ -19,42 +19,42 @@ export class AddRepoResponse implements Action {
 
 export class AddIssueResponse implements Action {
     readonly type = ADD_ISSUE_RESPONSE;
-    payload: Card;
+    constructor(public payload: Card){}
 }
 
 export class AddCollabResponse implements Action {
     readonly type = ADD_COLLAB_RESPONSE;
-    payload: Card;
+    constructor(public payload: Card){}
 }
 
 export class AddCommentResponse implements Action {
     readonly type = ADD_COMMENT_RESPONSE;
-    payload: Card;
+    constructor(public payload: Card){}
 }
 
 export class CloseIssueResponse implements Action {
     readonly type = CLOSE_ISSUE_RESPONSE;
-    payload: Card;
+    constructor(public payload: Card){}
 }
 
 export class ShowLastCommentResponse implements Action {
     readonly type = SHOW_LAST_COMMENT_RESPONSE;
-    payload: Card;
+    constructor(public payload: Card){}
 }
 
 export class ViewRepoResponse implements Action {
     readonly type = VIEW_REPO_RESPONSE;
-    payload: Card;
+    constructor(public payload: Card){}
 }
 
 export class Command implements Action {
     readonly type = COMMAND;
-    payload: Card;
+    constructor(public payload: Card){}
 }
 
 export class ClearHistory implements Action {
     readonly type = CLEAR_HISTORY;
-    payload: Card;
+    constructor(public payload: Card){}
 }
 
 export type CardActions = AddRepoResponse | AddCollabResponse | AddCommentResponse | AddIssueResponse | CloseIssueResponse | ShowLastCommentResponse | ViewRepoResponse | Command | ClearHistory;

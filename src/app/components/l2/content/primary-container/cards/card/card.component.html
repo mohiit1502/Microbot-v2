@@ -1,15 +1,17 @@
 <div class="card {{card.cardStyle}}">
   <div class="card-body">
-    <h5 class="card-title">{{card.cardTitle}}<a class="close">
-        <h6>x</h6>
-      </a></h5>
-    <p class="card-text" id="card-content">
-      {{card.cardContent}}
+    <h5 class="card-title">
+      {{card.cardTitle}}
+      <a class="btn btn-danger float-right close" id="btnRemove">Remove</a>
       <a 
+        *ngIf="card.type=='command'"
         class="btn btn-info float-right" 
         role="button"
         id="btnRepeatCommand{{card.insertionCounter}}"
         (click)="repeatCommand()">Repeat</a>
+    </h5>
+    <p class="card-text" id="card-content">
+      {{card.cardContent}}
     </p>
   </div>
   <div class="card-footer"><small class="text-muted">{{displayTime}}</small></div>

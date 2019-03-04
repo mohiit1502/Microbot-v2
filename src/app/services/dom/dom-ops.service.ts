@@ -141,7 +141,8 @@ export class DomOpsService {
 
   getDataFromFormAsJSON() {
     let data = {};
-    const intent = $(`#${$config.constants.hiddenIntentFieldId}`).val();
+    // const intent = $(`#${$config.constants.hiddenIntentFieldId}`).val();
+    const intent = window.localStorage.getItem($config.constants.hiddenIntentFieldId)
     const requestMethod = $config.intentSlugToOperations[intent].requestMethod;
     if (intent) {
       const operation = $config.intentSlugToOperations[intent].getDataOperation;
@@ -480,3 +481,4 @@ export class DomOpsService {
     this.commandPromptEnteredWithValue.emit();
   }
 }
+``

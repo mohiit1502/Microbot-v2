@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { RecastOpsService } from 'src/app/services/recast/recast-ops.service';
 import { DomOpsService } from 'src/app/services/dom/dom-ops.service';
 import { CardService } from 'src/app/services/cards/card.service.js';
@@ -18,6 +18,10 @@ import * as $ from 'node_modules/jquery/dist/jquery';
 export class CommandPromptComponent implements OnInit {
 
   recognition: SpeechRecognition;
+  contextMenuFirstDisplay: boolean;
+  contextMenuDisplayed: boolean;
+  @ViewChild('command') command: ElementRef;
+  emptyCommandMessage: string = 'Please type a command or use "Speech" button to speak to the bot.';
 
   constructor(private recastOpsService: RecastOpsService, 
       private domOpsService: DomOpsService,
@@ -25,21 +29,14 @@ export class CommandPromptComponent implements OnInit {
       private store: Store<{ioHistory: {responses: Card[]}}>) { }
 
   ngOnInit() {
-    $('#content nav div.collapse li a.nav-link i.far.fa-star').hover(() => {
-      $('#content nav div.collapse li a.nav-link i.far.fa-star').toggleClass('fas');
-    });
-    $('#content nav div.collapse li a.nav-link i.far.fa-trash-alt').hover(() => {
-      $('#content nav div.collapse li a.nav-link i.far.fa-trash-alt').toggleClass('fas');
-    });
-    $('#content nav div.collapse li a.nav-link i.far.fa-paper-plane').hover(() => {
-      $('#content nav div.collapse li a.nav-link i.far.fa-paper-plane').toggleClass('fas');
-    });
     this.domOpsService.repeatRequested.subscribe(
       (command) => {
-        this.executeCommand(command, 'Could not retrieve command from selected card, please choose a different card or enter a new command');
+        $('#command').val(command);
+        this.executeCommand();
       }
     )
     this.registerSpeechHandlers();
+    this.registerMouseAndKeyboardHandlers();
   }
 
   toggleClass(event: MouseEvent) {
@@ -49,9 +46,8 @@ export class CommandPromptComponent implements OnInit {
   initiateDomOpsOnEnter(event: any) {
     const code = (event.keyCode ? event.keyCode : event.which);
     if (code === 13) {
-      this.domOpsService.hideNonCards();
-      const command = event.target.value;
-      this.executeCommand(command, 'Please type a command or use "Speech" button to speak to the bot.')
+      // this.domOpsService.hideNonCards();
+      this.executeCommand();
     }
   }
 
@@ -71,9 +67,10 @@ export class CommandPromptComponent implements OnInit {
 
   registerSpeechHandlers() {
     let SpeechRecognition: any;
-    let instructions: any;
+    let instructions: any = $('#command');
     try {
       SpeechRecognition = window.SpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition || window.webkitSpeechRecognition;
+      //SpeechRecognition = '';
       this.recognition = new SpeechRecognition();
     }
     catch(e) {
@@ -81,19 +78,19 @@ export class CommandPromptComponent implements OnInit {
       $('.no-browser-support').show();
       $('.app').hide();
     }
-    // this.recognition.onstart = function() { 
-    //   instructions.text('Voice recognition activated. Try speaking into the microphone.');
-    // }
+    this.recognition.onstart = function() { 
+      instructions.val('Voice recognition activated. Try speaking into the microphone.');
+    }
     
-    // this.recognition.onspeechend = function() {
-    //   instructions.text('You were quiet for a while so voice recognition turned itself off.');
-    // }
+    this.recognition.onspeechend = function() {
+      instructions.val('You were quiet for a while so voice recognition turned itself off.');
+    }
     
-    // this.recognition.onerror = function(event) {
-    //   if(event.error == 'no-speech') {
-    //     instructions.text('No speech was detected. Try again.');  
-    //   };
-    // }
+    this.recognition.onerror = function(event) {
+      if(event.error == 'no-speech') {
+        instructions.val('No speech was detected. Try again.');  
+      };
+    }
 
     this.recognition.onresult = function(event: SpeechRecognitionEvent) {
       let noteContent: string = "";
@@ -107,18 +104,40 @@ export class CommandPromptComponent implements OnInit {
     }
   }
 
-  executeCommand(command, noCommandMessage) {
+  registerMouseAndKeyboardHandlers() {
+    $('#content nav div.collapse li a.nav-link i.far.fa-star').hover(() => {
+      $('#content nav div.collapse li a.nav-link i.far.fa-star').toggleClass('fas');
+    });
+    $('#content nav div.collapse li a.nav-link i.far.fa-trash-alt').hover(() => {
+      $('#content nav div.collapse li a.nav-link i.far.fa-trash-alt').toggleClass('fas');
+    });
+    $('#content nav div.collapse li a.nav-link i.far.fa-paper-plane').hover(() => {
+      $('#content nav div.collapse li a.nav-link i.far.fa-paper-plane').toggleClass('fas');
+    });
+    $('*').on('click', (event) => {
+      if(!this.contextMenuFirstDisplay) {
+        $("#inputSelectionContextMenu").removeClass("show").hide();
+        this.contextMenuDisplayed = false;
+        event.stopPropagation();
+      } else {
+        this.contextMenuFirstDisplay = false;
+        event.stopPropagation();
+      }
+    });
+  }
+
+  executeCommand() {
     this.domOpsService.hideNonCards();
-    if (command) {
-      let card = this.cardsService.getCommandCard($config.intentSlugToOperations.command.cardTitle, command, {}, "command");
-      let commandAction = new Command();
-      commandAction.payload = card;
-      this.store.dispatch(commandAction);
-      const text = { text: command };
-      let recastResponse = this.recastOpsService.getRecastResponse(command, text);
-      this.processRecastResponse(recastResponse)
+    let commandVal = this.command.nativeElement.value;
+    if(!commandVal) {
+      this.domOpsService.showEmptyCommandMessage(this.emptyCommandMessage);
     } else {
-      this.domOpsService.showEmptyCommandMessage(noCommandMessage);
+      let card = this.cardsService.getCommandCard($config.intentSlugToOperations.command.cardTitle, commandVal, {}, "command");
+      let commandAction = new Command(card);
+      this.store.dispatch(commandAction);
+      const text = { text: commandVal };
+      let recastResponse = this.recastOpsService.getRecastResponse(commandVal, text);
+      this.processRecastResponse(recastResponse);
     }
   }
 
@@ -149,11 +168,10 @@ export class CommandPromptComponent implements OnInit {
           window.localStorage.setItem($config.constants.hiddenIntentFieldId, intentSlug);
           this.domOpsService.displayIntentBox(intentSlug);
           if (intentSlug == "resethistory") {
-            let resetHistoryResponseAction = new ClearHistory();
             let card = this.cardsService.getResponseCard($config.intentSlugToOperations.resethistory.cardTitle, 
-                            $config.intentSlugToOperations.resethistory.cardMsg, {}, "response");
+              $config.intentSlugToOperations.resethistory.cardMsg, {}, "response");
             card.insertionCounter = 0;
-            resetHistoryResponseAction.payload = card;
+            let resetHistoryResponseAction = new ClearHistory(card);
             this.store.dispatch(resetHistoryResponseAction);
             return;
           }
@@ -169,6 +187,24 @@ export class CommandPromptComponent implements OnInit {
       }
     });
     
+  }
+
+  showContextMenu(event: any) {
+    if(this.contextMenuDisplayed == true) {
+      return;
+    }
+    var inputField = event.target;
+    if(inputField.value.length > 2 && inputField.selectionStart == 0 && inputField.selectionEnd == inputField.value.length) {
+      var top = event.pageY - 10;
+      var left = event.pageX - 90;
+      $("#inputSelectionContextMenu").css({
+        display: "block",
+        top: top,
+        left: left
+      }).addClass("show");
+      this.contextMenuFirstDisplay = true;
+      this.contextMenuDisplayed = true;
+    }
   }
 
 }

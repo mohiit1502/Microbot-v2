@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { PersistenceOpsService } from '../io/persistence-ops.service';
 import { DomOpsService } from '../dom/dom-ops.service';
 
@@ -11,6 +11,7 @@ import * as $config from '../../configuration/config';
 export class GithubOpsService {
 
   authorizationToken: string = `token ${$config.gitToken}`;
+  @Output() gitOperationIdentified = new EventEmitter<string>();
 
   constructor(private persistenceOpsService: PersistenceOpsService, private domOpsService: DomOpsService) { }
 

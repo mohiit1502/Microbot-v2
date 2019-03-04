@@ -1,6 +1,6 @@
 <div 
   id="createrepo" 
-  class="card hide widget good"
+  [ngClass]="{'card widget good': true, 'hide': isHidden}"
   [hidden]="isHidden"
   #widget>
     <div class="card-body">

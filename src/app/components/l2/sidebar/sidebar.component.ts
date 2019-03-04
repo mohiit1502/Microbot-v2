@@ -15,6 +15,20 @@ export class SidebarComponent implements OnInit {
       $('#sidebar').toggleClass('active');
       $('.hideable').toggleClass('hide');
     });
+    $('#sidebar.active > span').on('click', () => {
+      $('#sidebar').css('transform', 'translateX(85px)');
+      $('#sidebar').css('box-shadow', 'rgb(224, 151, 32) 10px 10px 30px');
+      $('.triangle').removeClass('animation');
+    });
+    $('*').on('click', (e) => {
+//       console.log(e.target);
+      e.stopPropagation();
+      if(e.target.id !== 'pullOutButton' && e.target.id !== 'sidebar') {
+        $('#sidebar').css('transform', 'translateX(0px)');
+        $('#sidebar').css('box-shadow', '');
+        $('.triangle').addClass('animation');
+      }
+    })
   }
 
 }

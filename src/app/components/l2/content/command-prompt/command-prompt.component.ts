@@ -5,7 +5,7 @@ import { CardService } from 'src/app/services/cards/card.service.js';
 import { Store } from '@ngrx/store';
 import { Command, ClearHistory } from 'src/app/store/cards.actions.js';
 
-import { Card } from '../primary-container/cards/card/Card.model.js';
+import { Card } from '../primary-container/cards/card/card.model';
 
 import * as $config from '../../../../configuration/config.js'
 import * as $ from 'node_modules/jquery/dist/jquery';
@@ -69,9 +69,9 @@ export class CommandPromptComponent implements OnInit {
     let SpeechRecognition: any;
     let instructions: any = $('#command');
     try {
-      SpeechRecognition = window.SpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition || window.webkitSpeechRecognition;
+      // SpeechRecognition = window.SpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition || window.webkitSpeechRecognition;
       //SpeechRecognition = '';
-      this.recognition = new SpeechRecognition();
+      // this.recognition = new SpeechRecognition();
     }
     catch(e) {
       console.error(e);

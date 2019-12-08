@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "^7.2.3",
     "@angular/router": "^7.2.3",
     "@ngrx/store": "^7.2.0",
-    "bootstrap": "^4.2.1",
+    "bootstrap": "^4.3.1",
     "concurrently": "^4.1.0",
     "core-js": "^2.6.2",
     "popper": "^1.0.1",
@@ -31,7 +31,7 @@
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.13.0",
+    "@angular-devkit/build-angular": "^0.13.9",
     "@angular/cli": "^7.3.0",
     "@angular/compiler-cli": "^7.2.3",
     "@angular/language-service": "^7.2.3",
@@ -41,7 +41,7 @@
     "codelyzer": "^4.5.0",
     "jasmine-core": "^3.3.0",
     "jasmine-spec-reporter": "^4.2.1",
-    "jquery": "^3.3.1",
+    "jquery": "^3.4.1",
     "karma": "^3.1.4",
     "karma-chrome-launcher": "^2.2.0",
     "karma-cli": "^2.0.0",
